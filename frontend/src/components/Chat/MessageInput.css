@@ -1,0 +1,128 @@
+.message-input-container {
+  padding: var(--space-6);
+  background-color: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: center;
+}
+
+.input-wrapper {
+  width: 100%;
+  max-width: var(--max-content-width);
+  position: relative;
+}
+
+.message-input {
+  width: 100%;
+  padding: var(--space-4);
+  padding-right: 52px; /* Space for send button */
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  font-family: var(--font-family);
+  color: var(--gray-900);
+  background-color: #ffffff;
+  resize: none;
+  min-height: 52px;
+  max-height: 200px;
+  line-height: var(--leading-normal);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.message-input::placeholder {
+  color: var(--gray-400);
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue-light);
+}
+
+.message-input:disabled {
+  background-color: var(--gray-100);
+  color: var(--gray-500);
+  cursor: not-allowed;
+}
+
+/* Circular Send Button - ChatGPT Style */
+.send-button {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  padding: 0;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: var(--accent-blue-hover);
+  transform: scale(1.05);
+}
+
+.send-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.send-button:disabled {
+  background-color: var(--gray-300);
+  color: var(--gray-400);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.send-button svg {
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .message-input-container {
+    padding: var(--space-5);
+  }
+
+  .message-input {
+    font-size: var(--text-sm);
+  }
+}
+
+/* Mobile (<768px) */
+@media (max-width: 768px) {
+  .message-input-container {
+    padding: var(--space-4);
+  }
+
+  .input-wrapper {
+    max-width: 100%;
+  }
+
+  .message-input {
+    font-size: var(--text-sm);
+    padding: var(--space-3);
+    padding-right: 48px;
+    min-height: 48px;
+  }
+
+  .send-button {
+    width: 32px;
+    height: 32px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .send-button svg {
+    width: 16px;
+    height: 16px;
+  }
+}
