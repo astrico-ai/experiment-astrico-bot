@@ -1,0 +1,157 @@
+{
+  "billing_date": {
+    "type": "date",
+    "unit": "YYYY-MM-DD",
+    "description": "Date on which the billing document was generated"
+  },
+  "company_group": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Company under which the sales transaction is recorded. [ENTI, TWOC] ENTI = Eneos, TWOC = Tide Water Oil Corporation/Veedol"
+  },
+  "customer_number": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Customer code representing the unique party to whom the goods are sold"
+  },
+  "billing_document": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Unique invoice number; each invoice can have multiple records, one for each material sold."
+  },
+  "plant": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Plant code from which the material was dispatched"
+  },
+  "distribution_channel": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Abbreviation of Sales distribution channel under which the customer operates [AM, DE, EC, EN, EX, IN, OE, OS, ST, SV]"
+  },
+  "billing_code": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Billing code defining the nature of the invoice [F2, RE, ZAMZ, ZDCM, ZDDM, ZDEP, ZDEX, ZDRE, ZDRX, ZNED, YF2]"
+  },
+  "billing_type": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Billing document type description corresponding to the Billing Code [Invoice, Credit for Returns, Amazon Invoice, Credit Memo, Debit Memo, Ex. Depot Invoice, Deemed Export, Depot Returns, Deemed Export Return, Non Ex.Depot Invoice, Export Invoice]"
+  },
+  "customer_name": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Customer name to whom the invoice is billed"
+  },
+  "material_number": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Material or SKU code sold in the transaction; use this column to join with the Material Master dataset."
+  },
+  "material_description": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Full SKU description of the material sold."
+  },
+  "batch": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Batch number associated with the material sold"
+  },
+  "base_unit_of_measure": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Base unit of measure for the quantity sold [L, KG, EA] L = Litres, KG = Kilogram, EA = Each"
+  },
+  "customer_group": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Customer classification code [91, 92, 88, 93, 94, 95, 96, 89, 97, 98, 99, 81, 82, 83, 84, 86]."
+  },
+  "customer_group_text": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Description of the customer classification code [AA-CP, AA-DD, AA CNG Stockiest, INST-CP, INST-DC, OEM-FF, OEM-FW, OEM -Customer, EXPORT, E-COMM, OTHER, ENEOS-AA CP, ENEOS-OEM SF, ENEOS-OEM FF, ENEOS- IND, ENEOS-ENTI]."
+  },
+  "ship_to_party": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Customer code representing the delivery location for the goods"
+  },
+  "region": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Sales Region under which the transaction is mapped to [North, South, East, West]."
+  },
+  "item_category": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Sales item category defining the nature and pricing logic of the invoice line [G2N, L2N, REN, RENN, TAN, TANN, ZDEP]."
+  },
+  "volume": {
+    "type": "numeric",
+    "unit": "Liters",
+    "description": "Quantity sold for the invoice line item in LITERS. To convert to Kilolitres (KL), divide by 1000."
+  },
+  "gsv": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Gross Sales Value for the invoice line item before any discounts"
+  },
+  "nsv1": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Net Sales Value after discounts"
+  },
+  "cogs": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Cost of goods sold for the invoice line item"
+  },
+  "total_bill_amount": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Final billed amount for the invoice line item after discounts and rounding adjustments"
+  },
+  "contribution1": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Contribution margin for the invoice line item calculated as Net Sales minus Cost of Goods Sold"
+  },
+  "rounding_off": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Rounding adjustment applied at the invoice or line-item level"
+  },
+  "rtd": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Rate or price difference adjustment applied to the invoice line item"
+  },
+  "cash_discount": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Cash discount applied to the invoice line item"
+  },
+  "special_cash_discount": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Special cash discount applied as part of promotional or contractual schemes"
+  },
+  "cpd": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Customer promotional discount applied at the invoice line item level"
+  },
+  "ctd": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Channel trade discount applied to the transaction line"
+  },
+  "ebd": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Early bird or scheme-based discount applied to the invoice line item"
+  }
+}

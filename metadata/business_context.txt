@@ -1,0 +1,204 @@
+===========================================
+VEEDOL SALES DATA - DATASET DEFINITIONS
+===========================================
+
+This is Veedol lubricant sales data containing three main datasets: Sales Transactions, Customer Master, and Material Master.
+
+===========================================
+1. SALES TRANSACTION DATASET (sales_invoices_veedol)
+===========================================
+
+***Dataset Definition***
+The Sales Transaction Dataset represents invoice line-level transactional sales data capturing sales from Veedol to end customers at a product (material) level.
+
+***Key Characteristics***
+
+1. SCOPE OF DATA:
+   - Exclusively contains primary sales transactions (Veedol to customers via billing documents)
+   - Each row = one material (SKU) within a billing document
+   - A single invoice may contain multiple line items
+
+2. TIME FRAME:
+   - All time-based analysis MUST use the `billing_date` field
+
+3. ITEM CATEGORY - FREE OF COST (FOC) RULE:
+   - If `item_category` = 'RENN' or 'TANN', the line represents free of cost goods
+   - DO NOT exclude FOC items from analysis unless explicitly requested
+
+***CRITICAL SCOPE RULE: Region-wise Analysis***
+When comparing with budget data by region:
+- `customer_group_report` (distribution channel) is in `customer_master_veedol`
+- Join using `customer_number`
+- Channels 'ENEOS', 'OEM', 'EXPORTS' have region in sales but NOT in budget
+- **For target vs achievement by region queries ONLY:**
+  1. JOIN `sales_invoices_veedol` with `customer_master_veedol` on `customer_number`
+  2. EXCLUDE where `customer_group_report IN ('ENEOS', 'OEM', 'EXPORTS')`
+
+***CRITICAL METRIC PRIORITY RULE***
+For ANY metric-based query:
+- PRIORITIZE `volume` column FIRST
+- Fall back to value columns (GSV, NSV, etc.) ONLY if:
+  a) Volume is unavailable, OR
+  b) User EXPLICITLY requests value/revenue metrics
+
+***Join Keys***
+- customer_number → joins to customer_master_veedol.customer_number
+- material_number → joins to material_master_veedol.material_number
+
+***Refer to metadata JSON for complete column names, types, units, and descriptions***
+
+===========================================
+2. CUSTOMER MASTER DATASET (customer_master_veedol)
+===========================================
+
+***Dataset Definition***
+This dataset contains the master records of all Veedol customers, including customer data, distribution channel, geographic location (state), customer grouping, and the complete sales management hierarchy.
+
+***Key Characteristics***
+
+1. SALES HIERARCHY:
+   Area In-Charge → Area Manager → Senior Manager → Regional Manager → Business Head → All-India Head
+
+2. CONTAINS:
+   - Customer identification and classification
+   - Distribution channel assignment
+   - Geographic location (state/region)
+   - Customer grouping
+   - Complete sales rep hierarchy
+
+***CRITICAL RULE: Sales Rep / Hierarchy Analysis***
+When analyzing Sales Rep, Area In-Charge, Area Manager, or any hierarchy level, EXCLUDE the following non-person values:
+
+- area_incharge: EXCLUDE ['CP CLOSED', 'ECOMM', 'ENEOS', 'EXPORTS', 'INACTIVE', 'OFFICE DIRECT', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VACANT', 'VDMC']
+
+- area_manager: EXCLUDE ['ECOMM', 'ENEOS', 'EXPORTS', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VACANT', 'VDMC']
+
+- senior_manager: EXCLUDE ['ECOMM', 'ENEOS', 'EXPORTS', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VACANT', 'VDMC']
+
+- regional_manager: EXCLUDE ['ECOMM', 'ENEOS', 'EXPORTS', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VDMC']
+
+- business_head: EXCLUDE ['ECOMM', 'ENEOS', 'EXPORTS', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VDMC']
+
+- all_india_head: EXCLUDE ['ECOMM', 'ENEOS', 'OTHER SALES', 'OTHERS', 'SERVICES', 'STOCK TRANSFER', 'VDMC']
+
+***Join Keys***
+- customer_number → joins to sales_invoices_veedol.customer_number
+
+***Refer to metadata JSON for complete column names, types, units, and descriptions***
+
+===========================================
+3. MATERIAL MASTER DATASET (material_master_veedol)
+===========================================
+
+***Dataset Definition***
+This dataset contains all details about Veedol SKUs. It defines each product's full SKU name, core brand variant, pack configuration, unit of measure, and its complete business hierarchy across product verticals, categories, and segments.
+
+***Key Characteristics***
+
+1. CONTAINS:
+   - SKU identification (material_number, SKU name)
+   - Core brand and variant details
+   - Pack configuration and unit of measure
+   - Product business hierarchy:
+     * Product verticals
+     * Product categories
+     * Product segments
+
+***Join Keys***
+- material_number → joins to sales_invoices_veedol.material_number
+
+***Refer to metadata JSON for complete column names, types, units, and descriptions***
+
+===========================================
+4. BUDGET DATASET (budget_data_veedol)
+===========================================
+
+***Dataset Definition***
+The Daily Sales Budget Dataset contains day-level planned sales targets for FY 2025–26 at a material (SKU) level, including budgeted volume, gross value, discounts, and net sales value across distribution channels.
+
+***Key Characteristics***
+
+1. SCOPE OF DATA:
+   - Day-level budget allocations for FY 2025-26
+   - Material (SKU) level targets
+   - Includes: budgeted volume, GSV, discounts, NSV
+   - Segmented by distribution channel and region
+
+2. TIME FRAME:
+   - Use `date` field for time-based budget queries
+   - Budget period: FY 2025-26
+   - Weekly tracking available via `week` field
+
+***CRITICAL METRIC PRIORITY RULE***
+For ANY metric-based query involving budget data:
+- PRIORITIZE `volume` column FIRST
+- Use value metrics (GSV, NSV, etc.) ONLY if:
+  a) Volume is unavailable, OR
+  b) User EXPLICITLY requests value/revenue/budget amount metrics
+
+***CRITICAL SCOPE RULE: Region-wise Target vs Achievement***
+Channels ENEOS, OEM, and EXPORTS do not have region mapping in budget data.
+
+**EXCLUSION RULE - Apply ONLY for region-wise target vs achievement queries:**
+- When query is specifically about "target vs achievement by region" or "regional performance vs budget"
+- EXCLUDE channels: 'ENEOS', 'OEM', 'EXPORTS'
+- Method: Filter WHERE channel NOT IN ('ENEOS', 'OEM', 'EXPORTS')
+
+**DO NOT apply this exclusion for:**
+- Overall FY queries
+- YTD (Year-to-Date) queries
+- MTD (Month-to-Date) queries
+- QTD (Quarter-to-Date) queries
+- All-India / Total queries
+- Channel-wise analysis
+- Any query NOT specifically about regional breakdown
+
+⚠️ WARNING: Applying this exclusion outside region-wise analysis will inflate achievement percentages and give incorrect results.
+
+***Budget vs Actual Comparison***
+To compare actual sales vs budget:
+1. Join sales_invoices_veedol with budget_data_veedol on:
+   - material_number (SKU match)
+   - Date alignment (billing_date to budget date)
+   - Region match (if region-wise comparison)
+   - Channel match (use customer_group_report from customer_master_veedol)
+
+2. For region-wise comparison:
+   - Apply ENEOS/OEM/EXPORTS exclusion rule (see above)
+   - Match region from sales with region from budget
+
+3. Metrics to compare:
+   - Budget Volume vs Actual Volume (primary)
+   - Budget NSV vs Actual NSV (if requested)
+   - Achievement % = (Actual / Budget) × 100
+
+***Join Keys***
+- material_number → joins to sales_invoices_veedol.material_number
+- material_number → joins to material_master_veedol.material_number
+
+***Refer to metadata JSON for complete column names, types, units, and descriptions***
+
+===========================================
+GENERAL ANALYSIS GUIDELINES
+===========================================
+
+1. JOIN STRATEGY:
+   - sales_invoices_veedol ← customer_master_veedol (on customer_number)
+   - sales_invoices_veedol ← material_master_veedol (on material_number)
+
+2. DATE ANALYSIS:
+   - ALWAYS use `billing_date` from sales_invoices_veedol for time-based queries
+
+3. METRIC PRIORITY:
+   - Default to `volume` for metrics unless user asks for revenue/value
+   - Value metrics available: GSV, NSV, contribution, etc.
+
+4. HIERARCHY FILTERING:
+   - When analyzing sales reps/hierarchy, apply exclusion filters (see Customer Master section)
+
+5. REGIONAL ANALYSIS:
+   - For budget comparison: exclude ENEOS, OEM, EXPORTS channels
+   - Otherwise: include all channels unless specified
+
+6. FREE OF COST (FOC):
+   - Include FOC items (item_category = RENN/TANN) unless explicitly told to exclude

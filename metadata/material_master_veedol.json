@@ -1,0 +1,72 @@
+{
+  "material_number": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Unique identifier assigned to each SKU"
+  },
+  "material_description": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Full SKU name of the product"
+  },
+  "brand_variant": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Specific variant name of the brand under which the material is sold"
+  },
+  "brand": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Primary brand associated with the material (e.g., HERO, HONDA, ISUZU, KOBELCO, KOMATSU)"
+  },
+  "material_group_4": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Material group level 4 classification"
+  },
+  "sub_pack": {
+    "type": "numeric",
+    "unit": null,
+    "description": "Pack size value of a single unit"
+  },
+  "base_unit_of_measure": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Unit of measurement for the material [EA, KG, L]"
+  },
+  "company_group": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Company group under which the material is classified [ENTI, TWOC]"
+  },
+  "segment": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Market segment classification"
+  },
+  "main_segment": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Primary market segment"
+  },
+  "segment_order": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Segment in which the material falls in [AGRI, BASE OIL, CVO, DEF, ENEOS, GEAR OILS, GENUINE OILS, GREASES, INDUSTRIAL, MCO, OTHERS, PCMO, SCRAP, SCV, UTTO, VEHICLE CARE]"
+  },
+  "pack_type": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Classification of packaging based on size [SMALL, BULK]"
+  },
+  "product_vertical": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Business-level product vertical in which the material falls in [AUTOMOTIVE, BASE OIL, DEF, ENEOS, ENEOS GO, INDUSTRIAL, SCRAP, VEEDOL GO, VEHICLE CARE]"
+  },
+  "product_category": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Sub-portfolio classification under Product Vertical [BASE OIL, DEF, ENEOS, ENEOS GO, PERFORMANCE, PREMIUM, PROFESSIONAL, SCRAP, VEEDOL GO]"
+  }
+}

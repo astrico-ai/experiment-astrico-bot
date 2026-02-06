@@ -1,0 +1,52 @@
+{
+  "date": {
+    "type": "date",
+    "unit": "YYYY-MM-DD",
+    "description": "Budget allocation date representing the planned budget for the given period"
+  },
+  "material_number": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Material or SKU code for which the budgeted values are defined"
+  },
+  "material_description": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Full SKU description corresponding to the material number"
+  },
+  "channel": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Distribution channel for which the budget is planned ['AFTER MARKET', 'ENEOS', 'EXPORTS', 'INSTITUTIONAL', 'OEM']"
+  },
+  "region": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Geographical region for which the budget is allocated ['East', 'North', 'South', 'West']"
+  },
+  "week": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Week identifier within the financial year used for weekly budget allocation and tracking ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5']"
+  },
+  "volume": {
+    "type": "numeric",
+    "unit": "Kilolitre",
+    "description": "Budgeted sales volume for the material for the given time period. Unit is Kilolitres (KL)"
+  },
+  "gsv": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Budgeted Gross Sales Value for the material before discounts for the given period"
+  },
+  "discount": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Budgeted discount amount planned for the material for the given period"
+  },
+  "nsv1": {
+    "type": "numeric",
+    "unit": "₹",
+    "description": "Budgeted Net Sales Value after planned discounts and before taxes; use this field for budget vs actual revenue comparisons."
+  }
+}

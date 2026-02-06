@@ -1,0 +1,67 @@
+{
+  "customer_number": {
+    "type": "varchar(50)",
+    "unit": null,
+    "description": "Unique identifier assigned to each Veedol customer; use this as the primary key to join with sales dataset"
+  },
+  "distribution_channel": {
+    "type": "varchar(20)",
+    "unit": null,
+    "description": "Abbreviation of Sales distribution channel under which the customer operates [AM, DE, EC, EN, EX, IN, OE, OS, ST, SV]"
+  },
+  "customer_name": {
+    "type": "varchar(255)",
+    "unit": null,
+    "description": "Registered business name of the customer"
+  },
+  "state": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "State in which the customer is located."
+  },
+  "customer_group_name": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Sub category of distribution channel.[AA CNG Stockiest, AA-CP, AA-DD, E-COMM, ENEOS- IND, ENEOS-AA CP, ENEOS-ENTI, ENEOS-OEM FF, ENEOS-OEM SF, EXPORT, INST-CP, INST-DC, Miscellaneous, OEM -Customer, OEM-FF, OEM-FW, OTHER, Service]"
+  },
+  "customer_group_report": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Human readable distribution channel specifically for management and performance reporting [AFTER MARKET, ECOMM, ENEOS, EXPORTS,INSTITUTIONAL, OEM, OTHER SALES, SERVICES, STOCK TRANSFER]"
+  },
+  "region": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Geographic region where the customer is located"
+  },
+  "area_incharge": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Area Incharge responsible for managing the customer at a local or territory level"
+  },
+  "area_manager": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Area Manager overseeing multiple Area Incharges or territories that include this customer"
+  },
+  "senior_manager": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Senior Manager responsible for a broader cluster of areas or regions including this customer"
+  },
+  "regional_manager": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Regional Manager accountable for business performance across a defined region that includes this customer"
+  },
+  "business_head": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "Business Head overseeing the business line or channel to which this customer belongs"
+  },
+  "all_india_head": {
+    "type": "varchar(100)",
+    "unit": null,
+    "description": "All India Head responsible for nationwide oversight of the business segment associated with this customer"
+  }
+}
