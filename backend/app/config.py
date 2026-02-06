@@ -1,5 +1,5 @@
 """
-Configuration management for Autonomous Insights Engine.
+Configuration management for NL-to-Insights Chat Engine.
 """
 from pydantic_settings import BaseSettings
 from typing import Optional
@@ -23,8 +23,6 @@ class Settings(BaseSettings):
     llm_model: str = "google/gemini-3-flash-preview"
     reasoning_effort: str = "high"  # none | minimal | low | medium | high | xhigh
     max_tokens: int = 16000
-    max_hypotheses: int = 15
-    max_exploration_iterations: int = 15
 
     # RAG Embedding Configuration
     embedding_provider: str = "openai"  # "openai" or "sentence-transformers"

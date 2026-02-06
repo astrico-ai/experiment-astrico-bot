@@ -1,11 +1,10 @@
 """
-FastAPI application entry point for Autonomous Insights Engine.
+FastAPI application entry point for NL-to-Insights Chat Engine.
 """
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.routes import router
 from .api.chat_routes import router as chat_router
 from .config import settings
 
@@ -19,8 +18,8 @@ logger = logging.getLogger(__name__)
 
 # Create FastAPI app
 app = FastAPI(
-    title="Autonomous Insights Engine",
-    description="LLM-powered autonomous data exploration for B2B sales data",
+    title="NL-to-Insights Chat Engine",
+    description="LLM-powered conversational data analysis for B2B sales data",
     version="1.0.0"
 )
 
@@ -34,7 +33,6 @@ app.add_middleware(
 )
 
 # Include API routes
-app.include_router(router, prefix="/api/v1", tags=["exploration"])
 app.include_router(chat_router, prefix="/api/v1/chat", tags=["chat"])
 
 
@@ -42,10 +40,9 @@ app.include_router(chat_router, prefix="/api/v1/chat", tags=["chat"])
 async def startup_event():
     """Run on application startup."""
     logger.info("=" * 60)
-    logger.info("Autonomous Insights Engine Starting...")
+    logger.info("NL-to-Insights Chat Engine Starting...")
     logger.info(f"Model: {settings.llm_model}")
     logger.info(f"Reasoning Effort: {settings.reasoning_effort}")
-    logger.info(f"Max Iterations: {settings.max_exploration_iterations}")
     logger.info("=" * 60)
 
     # Initialize RAG system
@@ -122,16 +119,16 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     """Run on application shutdown."""
-    logger.info("Autonomous Insights Engine Shutting Down...")
+    logger.info("NL-to-Insights Chat Engine Shutting Down...")
 
 
 @app.get("/")
 async def root():
     """Root endpoint."""
     return {
-        "name": "Autonomous Insights Engine",
+        "name": "NL-to-Insights Chat Engine",
         "version": "1.0.0",
-        "description": "LLM-powered autonomous data exploration",
+        "description": "LLM-powered conversational data analysis",
         "docs": "/docs"
     }
 
